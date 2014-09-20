@@ -3,6 +3,19 @@ set -e
 
 chown mumble-server:mumble-server /data
 
+if [ ! -f /data/key.pem ]; then
+	openssl req \
+		-new \
+		-newkey rsa:4096 \
+		-nodes \
+		-x509 \
+		-days 365 \
+		-subj "/C=US/ST=mumble/L=mumble/O=mumble/CN=mumbleserver" \
+		-keyout /data/key.pem \
+		-out /data/cert.pem
+	chown mumble-server:mumble-server /data/key.pem /data/cert.pem
+fi
+
 if [ ! -f /data/mumble-server.ini ]; then
 	cp /opt/mumble-server.ini /data/mumble-server.ini
 	chown mumble-server:mumble-server /data/mumble-server.ini
@@ -18,7 +31,7 @@ if [ ! -f /data/superuser_password.txt ]; then
 	echo "# Connect to the server as SuperUser and setup an admin user."
 	echo "# --------------------"
 	echo
-	sleep 10
+	sleep 3
 fi
 
 exec murmurd -fg -ini /data/mumble-server.ini
