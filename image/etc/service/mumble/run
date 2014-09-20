@@ -1,0 +1,24 @@
+#!/bin/sh
+set -e
+
+chown mumble-server:mumble-server /data
+
+if [ ! -f /data/mumble-server.ini ]; then
+	cp /opt/mumble-server.ini /data/mumble-server.ini
+	chown mumble-server:mumble-server /data/mumble-server.ini
+fi
+
+if [ ! -f /data/superuser_password.txt ]; then
+	SUPERUSER_PASSWORD=`pwgen -c -n -1 15`
+	echo $SUPERUSER_PASSWORD > /data/superuser_password.txt
+	murmurd -ini /data/mumble-server.ini -supw "$SUPERUSER_PASSWORD"
+	echo
+	echo "# --------------------"
+	echo "# SuperUser password: \"$SUPERUSER_PASSWORD\""
+	echo "# Connect to the server as SuperUser and setup an admin user."
+	echo "# --------------------"
+	echo
+	sleep 10
+fi
+
+exec murmurd -fg -ini /data/mumble-server.ini
