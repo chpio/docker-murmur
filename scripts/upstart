@@ -1,0 +1,5 @@
+description "Docker - Mumble"
+start on filesystem and started docker
+stop on runlevel [!2345]
+respawn
+exec docker run -p=64738:64738 -it -v=/var/container/mumble:/data --rm t128/mumble
