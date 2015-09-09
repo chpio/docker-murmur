@@ -2,6 +2,7 @@ mumble-server:
   build: ./container
   restart: on-failure
   ports:
-    - "64738:64738"
+    - "64738:64738/tcp"
+    - "64738:64738/udp"
   volumes:
     - ./data:/data
