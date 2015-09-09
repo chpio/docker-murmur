@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+
+if [ ! -f /data/key.pem ]; then
+	openssl req \
+		-new \
+		-newkey rsa:4096 \
+		-nodes \
+		-x509 \
+		-days 365 \
+		-subj "/C=US/ST=mumble/L=mumble/O=mumble/CN=mumbleserver" \
+		-keyout /data/key.pem \
+		-out /data/cert.pem
+fi
+
+if [ ! -f /data/mumble-server.ini ]; then
+	cp /opt/mumble-server.ini /data/mumble-server.ini
+fi
+
+chown -R mumble-server:mumble-server /data
+
+exec murmurd -fg -ini /data/mumble-server.ini

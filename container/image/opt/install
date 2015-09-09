@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# deps
+DEPS="openssl"
+DEPS_BUILD="wget"
+
+# install deps
+apk add --update $DEPS $DEPS_BUILD
+
+# download murmur (mumble server)
+MURMUR_VERSION=1.2.10
+
+cd /tmp
+
+wget \
+	"https://github.com/mumble-voip/mumble/releases/download/${MURMUR_VERSION}/murmur-static_x86-${MURMUR_VERSION}.tar.bz2" \
+	--output-document="/tmp/murmur.tar.bz2" \
+	--no-check-certificate
+
+# install murmur
+tar --bzip2 -xf /tmp/murmur.tar.bz2
+
+mv /tmp/murmur-static_x86-${MURMUR_VERSION}/murmur.x86 /usr/bin/murmurd
+
+addgroup -S mumble-server
+adduser -S -G mumble-server mumble-server
+
+# clean up
+apk del $DEPS_BUILD
+rm -rf /var/cache/apk/*
+rm -rf /tmp/*
