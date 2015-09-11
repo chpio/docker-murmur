@@ -3,7 +3,7 @@ set -e
 
 # deps
 DEPS="openssl"
-DEPS_BUILD="wget gnupg"
+DEPS_BUILD="wget gnupg ca-certificates"
 
 # install deps
 apk add --update $DEPS $DEPS_BUILD
@@ -15,13 +15,11 @@ cd /tmp
 
 wget \
 	"https://github.com/mumble-voip/mumble/releases/download/${MURMUR_VERSION}/murmur-static_x86-${MURMUR_VERSION}.tar.bz2" \
-	--output-document="/tmp/murmur.tar.bz2" \
-	--no-check-certificate
+	--output-document="/tmp/murmur.tar.bz2"
 
 wget \
 	"https://github.com/mumble-voip/mumble/releases/download/${MURMUR_VERSION}/murmur-static_x86-${MURMUR_VERSION}.tar.bz2.sig" \
-	--output-document="/tmp/murmur.tar.bz2.sig" \
-	--no-check-certificate
+	--output-document="/tmp/murmur.tar.bz2.sig"
 
 gpg --no-default-keyring --keyring /tmp/keyring.gpg --import /opt/mumble-pubkey.asc
 gpg --no-default-keyring --keyring /tmp/keyring.gpg --verify /tmp/murmur.tar.bz2.sig /tmp/murmur.tar.bz2
