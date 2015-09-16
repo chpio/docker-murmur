@@ -2,8 +2,8 @@
 set -e
 
 # deps
-DEPS="openssl"
-DEPS_BUILD="wget ca-certificates" # gnupg
+DEPS="openssl ca-certificates"
+DEPS_BUILD="wget" # gnupg
 
 # install deps
 apk add --update $DEPS $DEPS_BUILD
