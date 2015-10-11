@@ -1,5 +1,5 @@
 mumble-server:
-  build: ./container
+  image: chpio/mumble-server
   restart: on-failure
   ports:
     - "64738:64738/tcp"
