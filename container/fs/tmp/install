@@ -16,13 +16,14 @@ cd /tmp
 
 wget \
 	"https://github.com/mumble-voip/mumble/releases/download/${MURMUR_VERSION}/murmur-static_x86-${MURMUR_VERSION}.tar.bz2" \
-	--output-document="/tmp/murmur.tar.bz2"
+	--output-document="murmur.tar.bz2"
 
 echo "${MURMUR_SHAONE}  murmur.tar.bz2" | sha1sum -c -
 
-tar --bzip2 -xf /tmp/murmur.tar.bz2
+tar --bzip2 -xf murmur.tar.bz2
+cd murmur-static_x86-${MURMUR_VERSION}
 
-mv /tmp/murmur-static_x86-${MURMUR_VERSION}/murmur.x86 /usr/bin/murmurd
+mv murmur.x86 /usr/bin/murmurd
 
 addgroup -S mumble-server
 adduser -S -G mumble-server mumble-server

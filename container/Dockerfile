@@ -1,6 +1,6 @@
 FROM alpine
 
-ADD image /
+ADD ./fs /
 RUN /tmp/install
 
 CMD ["/opt/run"]
