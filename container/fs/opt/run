@@ -6,7 +6,7 @@ if [ ! -f /data/key.pem ]; then
 		-newkey rsa:4096 \
 		-nodes \
 		-x509 \
-		-days 365 \
+		-days 3650 \
 		-subj "/C=US/ST=mumble/L=mumble/O=mumble/CN=mumbleserver" \
 		-keyout /data/key.pem \
 		-out /data/cert.pem
