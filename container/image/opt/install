@@ -3,13 +3,14 @@ set -e
 
 # deps
 DEPS="openssl ca-certificates"
-DEPS_BUILD="wget" # gnupg
+DEPS_BUILD="wget"
 
 # install deps
 apk add --update $DEPS $DEPS_BUILD
 
 # download murmur (mumble server)
 MURMUR_VERSION=1.2.10
+MURMUR_SHAONE="396326ed4a53fcb0db5f687c612801e5b436bfcd"
 
 cd /tmp
 
@@ -17,14 +18,8 @@ wget \
 	"https://github.com/mumble-voip/mumble/releases/download/${MURMUR_VERSION}/murmur-static_x86-${MURMUR_VERSION}.tar.bz2" \
 	--output-document="/tmp/murmur.tar.bz2"
 
-# wget \
-# 	"https://github.com/mumble-voip/mumble/releases/download/${MURMUR_VERSION}/murmur-static_x86-${MURMUR_VERSION}.tar.bz2.sig" \
-# 	--output-document="/tmp/murmur.tar.bz2.sig"
-#
-# gpg --no-default-keyring --keyring /tmp/keyring.gpg --import /opt/mumble-pubkey.asc
-# gpg --no-default-keyring --keyring /tmp/keyring.gpg --verify /tmp/murmur.tar.bz2.sig /tmp/murmur.tar.bz2
+echo "${MURMUR_SHAONE}  murmur.tar.bz2" | sha1sum -c -
 
-# install murmur
 tar --bzip2 -xf /tmp/murmur.tar.bz2
 
 mv /tmp/murmur-static_x86-${MURMUR_VERSION}/murmur.x86 /usr/bin/murmurd
