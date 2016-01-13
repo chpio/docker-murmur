@@ -4,7 +4,7 @@ RUN { \
 	set -ex; \
 	MURMUR_VERSION=1.2.10; \
 	DEPS="openssl ca-certificates"; \
-	DEPS_BUILD="wget"; \
+	DEPS_BUILD="wget bzip2"; \
 	apt-get update; \
 	apt-get install --no-install-recommends -y $DEPS $DEPS_BUILD; \
 	cd /tmp; \
