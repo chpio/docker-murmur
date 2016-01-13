@@ -2,7 +2,7 @@ FROM debian:jessie
 
 RUN { \
 	set -ex; \
-	MURMUR_VERSION=1.2.10; \
+	MURMUR_VERSION=1.2.13; \
 	DEPS="openssl ca-certificates"; \
 	DEPS_BUILD="wget bzip2"; \
 	apt-get update; \
