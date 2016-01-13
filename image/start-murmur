@@ -12,10 +12,10 @@ if [ ! -f /data/key.pem ]; then
 		-out /data/cert.pem
 fi
 
-if [ ! -f /data/mumble-server.ini ]; then
-	cp /opt/mumble-server.ini /data/mumble-server.ini
+if [ ! -f /data/murmur-config.ini ]; then
+	cp /opt/murmur-config.ini /data/murmur-config.ini
 fi
 
 chown -R mumble-server:mumble-server /data
 
-exec murmurd -fg -ini /data/mumble-server.ini
+exec murmurd -fg -ini /data/murmur-config.ini
