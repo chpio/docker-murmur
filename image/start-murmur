@@ -10,6 +10,8 @@ if [ ! -f /data/murmur/key.pem ]; then
 		-subj "/C=US/ST=murmur/L=murmur/O=murmur/CN=murmur" \
 		-keyout /data/murmur/key.pem \
 		-out /data/murmur/cert.pem
+
+	chmod 400 /data/murmur/key.pem /data/murmur/cert.pem
 fi
 
 if [ ! -f /data/murmur/config.ini ]; then
