@@ -15,15 +15,21 @@ RUN { \
 RUN { \
 	set -ex; \
 	MURMUR_VERSION=1.2.13; \
+
+	# install deps
 	DEPS_BUILD="wget bzip2"; \
 	apt-get update; \
 	apt-get install --no-install-recommends -y $DEPS_BUILD; \
+
+	# install murmur
 	cd /tmp; \
 	wget \
 		"https://github.com/mumble-voip/mumble/releases/download/${MURMUR_VERSION}/murmur-static_x86-${MURMUR_VERSION}.tar.bz2" \
 		--output-document="murmur.tar.bz2"; \
 	tar --bzip2 -xf murmur.tar.bz2; \
 	mv murmur-static_x86-${MURMUR_VERSION}/murmur.x86 /usr/bin/murmurd; \
+
+	# clean up
 	apt-get remove -y $DEPS_BUILD; \
 	apt-get autoremove -y; \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
