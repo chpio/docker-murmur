@@ -2,11 +2,17 @@ FROM debian:jessie
 
 RUN { \
 	set -ex; \
+	apt-get update; \
+	apt-get install --no-install-recommends -y openssl ca-certificates; \
+	rm -r /var/lib/apt/lists/*; \
+}
+
+RUN { \
+	set -ex; \
 	MURMUR_VERSION=1.2.13; \
-	DEPS="openssl ca-certificates"; \
 	DEPS_BUILD="wget bzip2"; \
 	apt-get update; \
-	apt-get install --no-install-recommends -y $DEPS $DEPS_BUILD; \
+	apt-get install --no-install-recommends -y $DEPS_BUILD; \
 	cd /tmp; \
 	wget \
 		"https://github.com/mumble-voip/mumble/releases/download/${MURMUR_VERSION}/murmur-static_x86-${MURMUR_VERSION}.tar.bz2" \
