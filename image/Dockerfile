@@ -19,8 +19,8 @@ RUN { \
 		--output-document="murmur.tar.bz2"; \
 	tar --bzip2 -xf murmur.tar.bz2; \
 	mv murmur-static_x86-${MURMUR_VERSION}/murmur.x86 /usr/bin/murmurd; \
-	groupadd -r mumble-server; \
-	useradd -r -g mumble-server mumble-server; \
+	groupadd -r murmur; \
+	useradd -r -g murmur murmur; \
 	apt-get remove -y $DEPS_BUILD; \
 	apt-get autoremove -y; \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \

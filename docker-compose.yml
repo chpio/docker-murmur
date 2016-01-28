@@ -5,4 +5,4 @@ mumble-server:
     - "64738:64738/tcp"
     - "64738:64738/udp"
   volumes:
-    - ./data:/data
+    - ./data-murmur:/data/murmur

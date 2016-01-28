@@ -1,21 +1,21 @@
 #!/bin/sh -ex
 
-if [ ! -f /data/key.pem ]; then
+if [ ! -f /data/murmur/key.pem ]; then
 	openssl req \
 		-new \
 		-newkey rsa:4096 \
 		-nodes \
 		-x509 \
 		-days 3650 \
-		-subj "/C=US/ST=mumble/L=mumble/O=mumble/CN=mumbleserver" \
-		-keyout /data/key.pem \
-		-out /data/cert.pem
+		-subj "/C=US/ST=murmur/L=murmur/O=murmur/CN=murmur" \
+		-keyout /data/murmur/key.pem \
+		-out /data/murmur/cert.pem
 fi
 
-if [ ! -f /data/murmur-config.ini ]; then
-	cp /opt/murmur-config.ini /data/murmur-config.ini
+if [ ! -f /data/murmur/config.ini ]; then
+	cp /opt/murmur-config.ini /data/murmur/config.ini
 fi
 
-chown -R mumble-server:mumble-server /data
+chown -R murmur:murmur /data/murmur
 
-exec murmurd -fg -ini /data/murmur-config.ini
+exec murmurd -fg -ini /data/murmur/config.ini
