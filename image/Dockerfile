@@ -1,10 +1,15 @@
 FROM debian:jessie
 
 RUN { \
+	# install runtime deps
 	set -ex; \
 	apt-get update; \
 	apt-get install --no-install-recommends -y openssl ca-certificates; \
 	rm -r /var/lib/apt/lists/*; \
+
+	# create user
+	groupadd --gid 1000 -r murmur; \
+	useradd --uid 1000 -r -g murmur murmur; \
 }
 
 RUN { \
@@ -19,8 +24,6 @@ RUN { \
 		--output-document="murmur.tar.bz2"; \
 	tar --bzip2 -xf murmur.tar.bz2; \
 	mv murmur-static_x86-${MURMUR_VERSION}/murmur.x86 /usr/bin/murmurd; \
-	groupadd -r murmur; \
-	useradd -r -g murmur murmur; \
 	apt-get remove -y $DEPS_BUILD; \
 	apt-get autoremove -y; \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
