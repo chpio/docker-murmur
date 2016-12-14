@@ -14,7 +14,7 @@ RUN { \
 
 RUN { \
 	set -ex; \
-	MURMUR_VERSION=1.2.17; \
+	MURMUR_VERSION=1.2.18; \
 
 	# install deps
 	DEPS_BUILD="wget bzip2"; \
